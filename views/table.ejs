@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<!-- Christophe GANDIN -->
+<!-- Formation Node Js - Avril 2020 -->
+<!-- Exemple de mise en pratique -->
+<html>
+
+<head>
+    <title>Table
+        <%= tablenum %>
+    </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../css/cartes.css">
+    <link rel="stylesheet" href="../../css/mybutton.css">
+    <link rel="stylesheet" href="../../css/tableovalejeu.css">
+</head>
+
+<body>
+    <section class="regleSL">
+        <div id="regle"></div>
+    </section>
+    <!--  -->
+    <!-- Gauche de la table -->
+    <!--  -->
+    <section class="gauche">
+        <div class="pseudo">
+            <%= pseudo %>
+        </div>
+        <!--  -->
+        <!-- Enchères -->
+        <div id="popupEnchere" class="popupEnchere">
+            <div class="ligne">
+                <div class="ligneLab" id="encheremoi">Enchère</div>
+                <div class="ligneText" id="monench"></div>
+                <div class="plusmoins">
+                    <div><button class="myPlus" onclick="enchplusmoins('ench','-')">-</button></div>
+                    <div><button class="myPlus" onclick="enchplusmoins('ench','+')">+</button></div>
+                </div>
+            </div>
+            <div class="ligne">
+                <div class="ligneLab" id="couleurmoi">Couleur</div>
+                <div class="ligneText macoul" id="macoul"></div>
+                <div class="plusmoins">
+                    <div><button class="myPlus" onclick="enchplusmoins('coul','-')">-</button></div>
+                    <div><button class="myPlus" onclick="enchplusmoins('coul','+')">+</button></div>
+                </div>
+            </div>
+            <div class="ligne">
+                <div class="ligneLab"><img class="rhino" src="../../img/rhino.png" alt="le rhino de Nico"></div>
+                <div class="ligneText"></div>
+                <div class="plusmoins">
+                    <div><button class="myPlus" onclick="jannonce(false)">OK</button></div>
+                </div>
+            </div>
+            <div class="ligne">
+                <div class="ligneLab">
+                    <div><button class="myPlus" onclick="jannonce(true)">Coinche</button></div>
+                </div>
+                <div class="ligneText"></div>
+                <div class="plusmoins"></div>
+            </div>
+        </div>
+        <div class="btretour">
+            <div class="retour"><button class="myRed" onclick="redistrib()">Redistribuer</button></div>
+            <div class="retour"><a class="myRed" href="/game/<%= pseudo %>">
+                    Retour</a></div>
+        </div>
+        <!--  -->
+        <!-- carte jeu à distribuer -->
+        <div class="jeucarte">
+            <img id="go8" class="jeudistrib" src="../../img/dos2.png" alt="Distribution" onclick="go('<%= tablenum %>','<%= pseudo %>', '8')">
+            <img id="go6" class="jeudistrib" src="../../img/dos2.png" alt="Distribution" onclick="go('<%= tablenum %>','<%= pseudo %>', '6')">
+            <img id="go2" class="jeudistrib" src="../../img/dos2.png" alt="Distribution" onclick="go('<%= tablenum %>','<%= pseudo %>', '2')">
+        </div>
+    </section>
+    <!--  -->
+    <!-- la table -->
+    <!--  -->
+    <section class="table">
+        <!--  -->
+        <!-- table ovale -->
+        <div class="latableovale"></div>
+        <div class="regleMob">
+            <div id="regleMob"></div>
+        </div>
+        <div class="quijoue" id="quijoue"></div>
+        <!--  -->
+        <!-- 4 cartes au centre -->
+        <div class="quatre">
+            <div id="quatre1" class="quatre1"><img src="../../img/vide.png" id="carte<%= joueur1 %>" alt="Carte de jeu" class="carte" draggable="false"></div>
+            <div id="quatre2" class="quatre2"><img src="../../img/vide.png" id="carte<%= joueur2 %>" alt="Carte de jeu" class="carte" draggable="false"></div>
+            <div id="quatre3" class="quatre3"><img src="../../img/vide.png" id="carte<%= joueur3 %>" alt="Carte de jeu" class="carte" draggable="false"></div>
+            <div id="quatre4" class="quatre4"><img src="../../img/vide.png" id="carte<%= joueur4 %>" alt="Carte de jeu" class="carte" draggable="false"></div>
+        </div>
+        <!--  -->
+        <!-- Paquet du joueur qui distribue -->
+        <div class="paquets">
+            <div id="paquet1" class="paquet1"><img src="../../img/dos2.png" id="paquet<%= joueur1 %>" alt="Dernier donneur" class="paquet"></div>
+            <div id="paquet2" class="paquet2"><img src="../../img/dos2.png" id="paquet<%= joueur2 %>" alt="Dernier donneur" class="paquet"></div>
+            <div id="paquet3" class="paquet3"><img src="../../img/dos2.png" id="paquet<%= joueur3 %>" alt="Dernier donneur" class="paquet"></div>
+            <div id="paquet4" class="paquet4"><img src="../../img/dos2.png" id="paquet<%= joueur4 %>" alt="Dernier donneur" class="paquet"></div>
+        </div>
+        <!--  -->
+        <!-- joueurs sur la table-->
+        <div class="equipes">
+            <div class="j1">
+                <%= joueur1 %>
+            </div>
+            <div class="j2">
+                <%= joueur2 %>
+            </div>
+            <div class="j3">
+                <%= joueur3 %>
+            </div>
+            <div class="j4">
+                <%= joueur4 %>
+            </div>
+        </div>
+    </section>
+    <!--  -->
+    <!-- Partie-->
+    <!--  -->
+    <section class="droite">
+        <div id="info" class="carnet"><img src="../../img/carnet.png" alt="Carnet de jeu de Benoit" class="carnetimg"></img></div>
+        <div class="droiteInfo">
+            <div id="enchQui"></div>
+            </br>
+            <div id="enchCombien"></div>
+            <div id="enchCouleur"></div>
+            <div id="acoinche"></div>
+            <div id="asurcoinche"></div>
+        </div>
+        <div class="droiteInfobas" id="droiteInfobas">
+            <div>
+                <label for="scoreEq1">Score équipe 1:</label>
+                <input type="number" id="scoreEq1" name="scoreEq1" min="0" max="1500" step="10">
+            </div>
+            <div>
+                <label for="scoreEq2">Score équipe 2:</label>
+                <input type="number" id="scoreEq2" name="scoreEq2" min="0" max="1500" step="10" placeholder="20">
+            </div>
+            </br>
+            <div>
+                <button class="myPlus" onclick="entrerscore(true)">Entrer le score</button>
+            </div>
+        </div>
+    </section>
+    <section class="droitedroite">
+        <div class="droitedroitetrait"></div>
+        <div id="info2" class="carnet2"><img src="../../img/note.png" alt="Carnet de jeu de Benoit" class="carnet2img"></img></div>
+        <div class="droitedroitehaut">
+            <div class="dtdteq1">Equipe 1</div>
+            <div class="dtdteq2">Equipe 2</div>
+        </div>
+        <div class="droitedroiteInfo">
+            <div id="result"></div>
+        </div>
+        <div class="droitedroiteMasque">
+            <div id="masqueEq1"></div>
+            <div id="masqueEq2"></div>
+        </div>
+        <div class="droitedroitebas">
+            <div>Equipe 1 :
+                <%= joueur1 %> -
+                <%= joueur3 %>
+            </div>
+            <div>Equipe 2 :
+                <%= joueur2 %> -
+                <%= joueur4 %>
+            </div>
+        </div>
+        <div id="donne"></div>
+    </section>
+    <!--  -->
+    <!-- Main du joueur 6/8 cartes-->
+    <!--  -->
+    <section class="tapis">
+        <div id="tapis1"></div>
+    </section>
+</body>
+<!-- Script utilisés -->
+<script type="text/javascript" src="../../script/fonctions.js"></script>
+<script type="text/javascript" src="../../script/jeu_cartes.js"></script>
+<script type="text/javascript" src="../../script/deplSouris.js"></script>
+<script type="text/javascript" src="../../script/deplDoigt.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+// Synchronisation avec le serveur
+var socket = io();
+
+// Init données
+// ==> type de coinche
+jeu.tapis.info("regle", '<%= typeC %>');
+document.getElementById("macoul").innerHTML = '♥';
+document.getElementById("macoul").style = "color:red";
+if ('<%= typeC %>' === 'S') {
+    document.getElementById("monench").innerHTML = '82';
+    document.getElementById("go8").style.visibility = "collapse";
+    document.getElementById("go6").style.visibility = "visible";
+    document.getElementById("go2").style.visibility = "collapse";
+} else {
+    document.getElementById("monench").innerHTML = '80';
+    document.getElementById("go8").style.visibility = "visible";
+    document.getElementById("go6").style.visibility = "collapse";
+    document.getElementById("go2").style.visibility = "collapse";
+}
+
+// ==> tapis 4 cartes
+jeu.init('<%= pseudo %>', '<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');
+// ==> enchères
+jeu.tapis.initenchere('<%= points %>', '<%= couleurs %>');
+
+// Go : distribution des cartes par joueur
+function go(table, pseudo, nbCartes) {
+    // Vérification qu'il y ait eu une enchère avant distrib des 2 cartes
+    let monEnch = document.getElementById("enchCombien").innerHTML;
+    if (nbCartes === '2' && (monEnch === "" || !monEnch)) {
+        alert("C'est un peu trop rhino de partir sans enchère !");
+    } else {
+        // Récupération du numéro du joueur
+        socket.emit('distrib', table, pseudo, nbCartes);
+    }
+}
+
+// Joueur a joué
+function ajoue(card) {
+    // J'ai joué, je ne peux plus poser de carte
+    jeu.tapis.bloquecarte('<%= pseudo %>', false);
+
+    //On utilise la couleur
+    let coul = document.getElementById("enchCouleur").innerHTML;
+
+    // J'ai joué
+    socket.emit('jaijoue', '<%= tablenum %>', '<%= pseudo %>', card, coul);
+    //console.log('<%= pseudo %>' + 'a joué' + card);
+}
+
+// Joueur a effectué une enchère goecnh('ench' + '+')
+function enchplusmoins(type, action) {
+    // Choix de la couleur et de l'enchère
+    if (type === 'ench') {
+        let monench = document.getElementById("monench");
+        let retench = jeu.tapis.enchereplusmoins('<%= typeC %>', type, monench.innerHTML, action);
+        monench.innerHTML = retench.ench;
+    }
+
+    // Choix de la couleur et de l'enchère
+    if (type === 'coul') {
+        let macoul = document.getElementById("macoul");
+        let retench = jeu.tapis.enchereplusmoins('<%= typeC %>', type, macoul.innerHTML, action);
+        macoul.innerHTML = retench.ench;
+        document.getElementById("macoul").style = retench.couleur;
+    }
+
+}
+
+// Joueur a effectué une enchère
+function jannonce(acoinche) {
+    // Récupération de l'enchère et couleur
+    let macoul = document.getElementById("macoul").innerHTML;
+    let monench = document.getElementById("monench").innerHTML;
+    socket.emit('enchere', '<%= tablenum %>', '<%= pseudo %>', monench, macoul, acoinche);
+}
+
+// Redistribuer
+function redistrib() {
+    socket.emit('redistrib', '<%= tablenum %>', '<%= pseudo %>');
+}
+
+// Entrer score 
+function entrerscore() {
+    let score1 = document.getElementById("scoreEq1").value;
+    if (score1 === "") score1 = document.getElementById("scoreEq1").placeholder;
+    let score2 = document.getElementById("scoreEq2").value;
+    if (score2 === "") score2 = document.getElementById("scoreEq2").placeholder;
+    document.getElementById("droiteInfobas").style.visibility = "hidden";
+    socket.emit('entrerscore', '<%= tablenum %>', '<%= pseudo %>', score1, score2);
+}
+
+// Redistribution sur chaque table
+socket.on('score', function(table, score1, score2) {
+    if (table === '<%= tablenum %>') {
+        let score = {};
+        score.eq1 = score1;
+        score.eq2 = score2;
+        jeu.tapis.info("result", score);
+        document.getElementById("droiteInfobas").style.visibility = "hidden";
+    }
+})
+
+// Redistribution sur chaque table
+socket.on('redistrib', function(table, redistributeur) {
+    if (table === '<%= tablenum %>') {
+        // Initialise la table de jeu 
+        // On réaffiche le paquet de cartes à distribuer
+        jeu.tapis.initpaquetdist('<%= typeC %>');
+        jeu.tapis.info("donne",'');
+
+        // On efface les cartes affichées 
+        let tapis = document.getElementById("tapis1");
+        // Suppression avant distribution (sauf pour les 2 cartes à la coinche stéphanoise)
+        while (tapis.firstChild) {
+            tapis.removeChild(tapis.firstChild);
+        }
+
+        // On init les 4 cartes si problème serveur
+        jeu.tapis.init4cartes('<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');
+
+        // On dénonce qui a redistribué
+        jeu.tapis.info("result", redistributeur + " a redistribué");
+    }
+})
+
+// Récupérations des cartes du joueur
+//         evt, table concernée, regles, cartes, 1° joueur, nb carte (6,8 ou 2)
+socket.on('cartes', function(table, regle, LCartes, quiJoue, donneur, nbCartes) {
+    if (table === '<%= tablenum %>') {
+
+        // Affichage du joueusr qui joue
+        jeu.tapis.info("quijoue", quiJoue);
+        jeu.tapis.info("donne",'');
+
+        // Début : initialisation 4 cartes du tapis
+        jeu.tapis.init4cartes('<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');
+        //jeu.tapis.initpaquet('<%= pseudo %>', donneur, '<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');
+
+        // Les enchères sont visibles
+        document.getElementById("popupEnchere").style.visibility = "visible";
+        //        document.getElementById("affEnchere").style.visibility = "hidden";
+
+        // seul le joueur qui peut joueur joue
+        if ('<%= pseudo %>' === quiJoue) jeu.tapis.bloquecarte('<%= pseudo %>', true);
+
+        // Si 2 cartes, décacher 7 et 8
+        if (nbCartes === '2') {
+            jeu.tapis.change78();
+            document.getElementById("go2").style.visibility = "collapse";
+        } else {
+            if (nbCartes === '6') {
+                document.getElementById("go6").style.visibility = "collapse";
+                document.getElementById("go2").style.visibility = "visible";
+            } else {
+                document.getElementById("go8").style.visibility = "collapse";
+                document.getElementById("go2").style.visibility = "collapse";
+            }
+            jeu.tapis.distribution('<%= pseudo %>', '<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>', LCartes, nbCartes);
+        }
+    }
+});
+
+// Récupérations des cartes du joueur
+socket.on('ajoue', function(table, card, pseudo, quiJoue, tour, pli, result, donneur) {
+    if (table === '<%= tablenum %>') {
+        // Init après premiere donne
+        if (tour === 1) {
+            document.getElementById("go8").style.visibility = "collapse";
+            document.getElementById("go6").style.visibility = "collapse";
+            document.getElementById("go2").style.visibility = "collapse";
+            document.getElementById("popupEnchere").style.visibility = "hidden";
+            //document.getElementById("affEnchere").style.visibility = "visible";
+            jeu.tapis.info("encheri", "");
+            document.getElementById("scoreEq1").value = "";
+            document.getElementById("scoreEq2").value = "";
+            jeu.tapis.init4cartes('<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');
+        }
+
+        // Affichage retour après avoir joué
+        jeu.tapis.info("quijoue", quiJoue);
+
+        // Action sur le jeu
+        jeu.tapis.ajoue(card, pseudo);
+        if ('<%= pseudo %>' === quiJoue) jeu.tapis.bloquecarte(quiJoue, true);
+
+
+        // Fin du tour
+        if (tour === 4 || tour === 99) {
+            jeu.tapis.info("donne",  pli.score + ' (' + pli.pli + ') ' + pli.vainqueur);
+        }
+
+        // Fin des 8 donnes
+        if (tour === 99) {
+            // Affichage du résultat
+            document.getElementById("droiteInfobas").style.visibility = "visible";
+            document.getElementById("scoreEq1").placeholder = result.eq1;
+            document.getElementById("scoreEq2").placeholder = result.eq2;
+
+            jeu.tapis.initpaquet('<%= pseudo %>', donneur, '<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');
+            if ('<%= typeC %>' === 'S') {
+                document.getElementById("monench").innerHTML = '82';
+                document.getElementById("go8").style.visibility = "collapse";
+                document.getElementById("go6").style.visibility = "visible";
+                document.getElementById("go2").style.visibility = "collapse";
+            } else {
+                document.getElementById("monench").innerHTML = '80';
+                document.getElementById("go8").style.visibility = "visible";
+                document.getElementById("go6").style.visibility = "collapse";
+                document.getElementById("go2").style.visibility = "collapse";
+            }
+
+        }
+    }
+});
+
+// Récupérations de l'enchere
+socket.on('aEncheri', function(table, pseudo, ench, coul, acoinche) {
+    if (table === '<%= tablenum %>') {
+        if (!acoinche) {
+            jeu.tapis.info("enchQui", pseudo);
+            jeu.tapis.info("enchCombien", ench);
+            jeu.tapis.info("enchCouleur", coul);
+            jeu.tapis.info("enchEnch", ench);
+        } else {
+            jeu.tapis.coinche(pseudo);
+        }
+
+    }
+});
+
+
+// Suppression des users à la déconnexion
+socket.on('disconnect', function() {
+    console.log('<%= pseudo %>' + ' est déconnecté');
+});
+
+//socket
+
+// On rend les cartes déplaçables et on prépare la zone de récupération
+//depl.go("#tapis1", true);
+//depl.go("#tapis2", false);
+//depl.go("#tapis3", false);
+//depl.go("#tapis4", false);
+
+// Même gestion pour jouer avec les doigts
+//doigt.go("#tapis1");
+//doigt.go("#tapis2");
+//doigt.go("#tapis3");
+//doigt.go("#tapis4");
+</script>
+
+</html>

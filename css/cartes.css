@@ -1,0 +1,286 @@
+/*styles.css----------*/
+/* ---- */
+/* Gestion des blocks HTML */
+/* couleurs prédéfinies : http://web-color.aliasdmc.fr/couleurs-hexa-rgb-hsl-predefini-html-css.php; */
+/* ---- */
+
+/* BODY */
+body {
+    background-color: grey;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0.5%;
+}
+
+.cache {
+    visibility: hidden;
+}
+
+.pseudo {
+    font-size: 2em;
+    width: 72%;
+    padding: 10px;
+    color: white;
+}
+
+.steph {
+    font-weight: bold;
+    font-size: 1.8em;
+    color: white;
+    padding-left: 300px;
+    background-color: darkgreen;
+}
+
+.lyon {
+    font-weight: bold;
+    font-size: 1.8em;
+    color: white;
+    padding: 3px;
+    padding-left: 300px;
+    border: 3px solid goldenrod;
+    background-color: #DA0D16;
+}
+
+.regleSL {
+    width: 100%;
+}
+
+.gauche {
+    width: 250px;
+    height: 400px;
+    margin: 0.5%;
+}
+
+.table {
+    position: relative;
+    width: 450px;
+    height: 400px;
+    margin: 0.5%;
+}
+
+.droite {
+    position: relative;
+    width: 130px;
+    height: 400px;
+    margin: 0.5%;
+}
+
+.droitedroite {
+    position: relative;
+    width: 220px;
+    height: 400px;
+    margin: 0.5%;
+}
+
+.tapis {
+    width: 80%;
+    text-align: center;
+    height: 50px;
+    margin: 0%;
+}
+
+/* Gestion partie gauche */
+.jeucarte {
+    height: 150px;
+    padding: 10px;
+}
+
+.jeudistrib {
+    position: absolute;
+    left: 170px;
+    height: 150px;
+}
+
+.affEnchere {
+    /*position: absolute;
+    top: 90px;
+    left: 800px; */
+    color: dark;
+    font-size: 1.5em;
+}
+
+.log {
+    /*position: absolute;
+    top: 120px;
+    left: 800px; */
+    color: dark;
+    font-size: 1.5em;
+}
+
+
+.popupEnchere {
+    border: 20px solid darkgoldenrod;
+    border-radius: 30px / 30px;
+    background-color: black;
+    height: 120px;
+    color: white;
+    padding: 5px;
+}
+
+.ligne {
+    width: 190px;
+    height: 30px;
+    display: inline-flex;
+}
+
+.macoul {
+    position: relative;
+    top: -12px;
+    font-size: 2.5em;
+}
+
+.ligneLab {
+    width: 80px;
+    display: table-cell;
+    /* comportement visuel de cellule */
+    vertical-align: text-top;
+}
+
+.ligneText {
+    width: 70px;
+    text-align: center;
+}
+
+.plusmoins {
+    display: inline-flex;
+}
+.rhino {
+    width: 30px;
+    height: 20px;
+}
+
+.btretour {
+    position: absolute;
+    top: 300px;
+}
+.quijoue {
+    position: absolute;
+    top: 290px;
+    left: 20px;
+    width: 100px;
+    height: 80px;
+    color: darkseagreen;
+    font-weight: bold;
+    z-index: 5;
+}
+
+.carnetimg {
+    width: 130px;
+    height: 200px;
+}
+
+.droiteInfo {
+    position: absolute;
+    top: 10px;
+    left: 20px;
+    width: 100px;
+    font-size: 1em;
+    text-align: center;
+    word-break: break-all;
+}
+
+#acoinche,
+#asurcoinche {
+    font-size: 0.8em;
+}
+
+.carnet2img {
+    height: 400px;
+}
+
+.droitedroiteInfo {
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    width: 200px;
+    height: 325px;
+    word-break: break-all;
+}
+
+#result {
+    position: absolute;
+    font-size: 0.80em;
+    width: 200px;
+    z-index: 9;
+}
+
+.res0 {
+    display: flex;
+    justify-content: space-around;
+    width: 200px;
+}
+
+.droiteInfobas {
+    visibility: hidden;
+    border: 10px solid darkgoldenrod;
+    border-radius: 30px / 30px;
+    background-color: black;
+    text-align: center;
+    height: 150px;
+    color: white;
+    padding: 5px; 
+}
+.droitedroiteMasque {
+    display: none;
+}
+.droitedroitetrait {
+    position: absolute;
+    border-left: 1px solid black;
+    top: 5px;
+    left: 115px;
+    width: 2px;
+    height: 340px;
+    z-index: 9;
+
+}
+
+.dtdteq1 {
+    position: absolute;
+    top: 0.1px;
+    left: 40px;
+}
+
+.dtdteq2 {
+    top: 0.1px;
+    position: absolute;
+    left: 130px;
+}
+
+#donne {
+    position: absolute;
+    top: 382px;
+    left: 20px;
+    font-size: 0.8em;
+}
+
+.droitedroitebas {
+    position: absolute;
+    font-size: 0.8em;
+    top: 352px;
+    left: 20px;
+}
+
+#enchCouleur {
+    font-size: 3em;
+}
+
+.retour{
+    padding: 5px;
+}
+/* Gestion sur mobile */
+@media screen and (max-width: 1024px) {
+
+    .regleMob {
+        color: darkseagreen;
+    }
+
+    .lyon,
+    .steph,
+    .droitedroite {
+        display: none;
+    }
+
+    .tapis {
+        width: 90%;
+    }
+}

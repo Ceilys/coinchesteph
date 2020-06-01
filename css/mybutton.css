@@ -1,0 +1,88 @@
+/* ---- */
+/* Gestion commune style bouton */
+/* ---- */
+
+.myButton {
+    box-shadow: inset 0px 1px 3px 0px #91b8b3;
+    background: linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+    background-color: #768d87;
+    border-radius: 5px;
+    border: 1px solid #566963;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 11px 23px;
+    text-decoration: none;
+    text-shadow: 0px -1px 0px #2b665e;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+    background-color: #6c7c7c;
+}
+
+button:active {
+    position: relative;
+    top: 1px;
+}
+
+/* Gestion sur mobile */
+@media screen and (max-width: 1024px) {
+
+    .myButton {
+        font-size: 35px;
+    }
+
+}
+
+.myPlus {
+    box-shadow:inset 0px 1px 0px 0px goldenrod
+    background:linear-gradient(to bottom, goldenrod 5%, #f6f6f6 100%);
+    background-color:goldenrod;
+    border-radius:6px;
+    border:1px solid darkgoldenrod;
+    display:inline-block;
+    cursor:pointer;
+    color:#666666;
+    font-family:Arial;
+    font-size:12px;
+    font-weight:bold;
+    padding:2px 12px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px goldenrod;
+}
+.myPlus:hover {
+    background:linear-gradient(to bottom, #f6f6f6 5%, goldenrod 100%);
+    background-color:#f6f6f6;
+}
+.myPlus:active {
+    position:relative;
+    top:1px;
+}
+
+.myRed {
+    box-shadow: 3px 4px 0px 0px #8a2a21;
+    background:linear-gradient(to bottom, #c62d1f 5%, #f24437 100%);
+    background-color:#c62d1f;
+    border-radius:18px;
+    border:1px solid #d02718;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:12px;
+    padding:7px 25px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #810e05;
+}
+.myRed:hover {
+    background:linear-gradient(to bottom, #f24437 5%, #c62d1f 100%);
+    background-color:#f24437;
+}
+.myRed:active {
+    position:relative;
+    top:1px;
+}

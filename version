@@ -1,0 +1,16 @@
+Version 2 : Inclus correctifs
+- bug visu donneur
+- possibilité de coincher
+- redistribution
+- impossible de donner si 6 cartes et pas d'annonces
+- effacement annonce précédente quand on distribue
+- problème sans atout
+- ajout des scores en fin de manche
+- mettre un nombre dans le nom possible maintenant
+
+A venir
+- Interdire couleur: trop compliqué, nécessite d'avoir la première carte jouée
+- double clic
+
+Abandonner 
+- tri des cartes 

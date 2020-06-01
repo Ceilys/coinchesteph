@@ -1,0 +1,53 @@
+/*styles.css----------*/
+/* ---- */
+/* Gestion des blocks HTML */
+/* couleurs prédéfinies : http://web-color.aliasdmc.fr/couleurs-hexa-rgb-hsl-predefini-html-css.php; */
+/* Pour les pages welcome et newtable */
+/* ---- */
+
+/* BODY */
+body {
+    background-color: grey;
+}
+
+.Bienvenue {
+    font-size: 4em;
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    color: darkgrey;
+}
+
+.pseudo {
+    color: white;
+}
+
+.Listes {
+    width: 50%;
+}
+
+.joueurs,
+.tables {
+    min-width: 600px;
+    font-weight: normal;
+    padding: 15px;
+}
+
+/* Gestion sur mobile */
+@media screen and (max-width: 1024px) {
+
+    .listJ,
+    .ListT {
+        font-size: 40px;
+    }
+
+    .tables,
+    .joueurs {
+        font-size: 25px;
+    }
+
+    .Bienvenue,
+    .Listes {
+        width: 90%;
+    }
+}

@@ -1,0 +1,56 @@
+/*styles.css----------*/
+/* ---- */
+/* Gestion des blocks HTML */
+/* couleurs prédéfinies : http://web-color.aliasdmc.fr/couleurs-hexa-rgb-hsl-predefini-html-css.php; */
+/* Pour les pages welcome et newtable */
+/* ---- */
+
+/* BODY */
+body {
+    background-color: grey;
+}
+
+.Bienvenue {
+    font-size: 4em;
+    width: 72%;
+    text-align: center;
+    padding: 10px;
+    color: darkgrey;
+}
+
+.tablenum {
+    color: white;
+}
+
+.mainj {
+    width: 280px;
+}
+
+.mainp {
+    font-weight: bold;
+    font-size: 20px;
+    color: darkgrey;
+    position: absolute;
+    top: 350px;
+    left: 300px;
+}
+
+.radio, .mainjfjul {
+    font-weight: normal;
+}
+
+
+/* Gestion sur mobile */
+@media screen and (max-width: 1024px) {
+
+
+    .radio, .mainjfjul,
+    .mainj {
+        font-size: 25px;
+    }
+
+    .Bienvenue {
+        width: 100%;
+    }
+
+}

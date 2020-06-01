@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- Christophe GANDIN -->
+<!-- Formation Node Js - Avril 2020 -->
+<!-- Exemple de mise en pratique -->
+<!-- CONSTITUTION DE LA TABLE -->
+<html>
+
+<head>
+    <title>Coinche
+    </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../css/mybutton.css">
+    <link rel="stylesheet" href="../../css/welcome.css">
+</head>
+
+<body>
+    <div class="Bienvenue">Bienvenue <span id="prenom" class="pseudo">
+            <%= pseudo %></span>
+    </div>
+    <div class="Listes">
+        <form class="formJ">
+            <div id="listJ" class="listJ myButton">Liste des joueurs
+                <div class="joueurs" id="users"></div>
+            </div>
+        </form>
+        <form class="formT">
+            <div id="listT" class="ListT myButton">Liste des tables
+                <div class="tables" id="tables"></div>
+            </div>
+        </form>
+        <form class="newT" action="<%= action %>" method="post" id="formtable">
+            <p>
+                <button class="myButton" id="btcreer">Créer une nouvelle table</button>
+            </p>
+        </form>
+    </div>
+    <div class="t1"><img src="../../img/jeucarte.png" alt="quelques cartes" class="cartes"></div>
+</body>
+<!-- 
+<----- SCRIPTS 
+<-- -->
+<!-- Start of scripts -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+//var socket = io.connect('http://localhost:' + location.port); // Without PORT 5000
+var socket = io();
+
+// Display initial list
+var pseudo = document.getElementById("prenom").getAttribute("class");;
+socket.emit('gamer list', pseudo);
+
+// Update user list
+socket.on('update', function(users, tablesG) {
+    _displayUsers(users);
+    _displayTables(tablesG);
+}); //socket
+
+function _displayUsers(userList) {
+    var listJ = document.getElementById("users");
+
+    // Suppression avant distribution (sauf pour les 2 cartes à la coinche stéphanoise)
+    while (listJ.firstChild) {
+        listJ.removeChild(listJ.firstChild);
+    }
+
+    // Création de la liste des joueurs
+    for (let i = 0, textnode = {}; i < userList.length; i++) {
+        if (i === userList.length - 1) {
+            textnode = document.createTextNode(userList[i]);
+        } else {
+            textnode = document.createTextNode(userList[i] + ' - ');
+        }
+        listJ.appendChild(textnode);
+    }
+};
+
+function _displayTables(gameTable) {
+    var listT = document.getElementById("tables");
+
+    // Suppression avant distribution (sauf pour les 2 cartes à la coinche stéphanoise)
+    while (listT.firstChild) {
+        listT.removeChild(listT.firstChild);
+    }
+
+    // Création de la liste des joueurs
+    for (let j = 0, textnode = {}, joueurs = ""; j < gameTable.length - 1; j++) {
+        joueurs = " - " +
+            gameTable[j][0] + ', ' +
+            gameTable[j][1] + ', ' +
+            gameTable[j][2] + ', ' +
+            gameTable[j][3];
+        let txtjoueurs = document.createTextNode(joueurs);
+        let txttable = document.createTextNode("Table " + (j + 1));
+        let node = document.createElement("LI");
+
+        textnode = document.createElement('a');
+        textnode.appendChild(txttable);
+        textnode.title = "Table " + (j + 1);
+        textnode.href = "/table/" + (j + 1) + "/" + "<%= pseudo %>";
+        node.appendChild(textnode);
+        node.appendChild(txtjoueurs);
+        listT.appendChild(node);
+    }
+};
+</script>
+
+</html>

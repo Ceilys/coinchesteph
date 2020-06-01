@@ -1,11 +1,38 @@
 {
-    "name": "super-chat",
-    "version": "0.1.0",
+    "name": "coinche",
+    "version": "2.0.0",
     "dependencies": {
-        "express": "~3.3.4",
-        "socket.io": "~1.2.1",
-        "ent": "~0.1.0"
+        "body-parser": "^1.19.0",
+        "cookie-session": "^1.4.0",
+        "ejs": "^3.0.2",
+        "ent": "~0.1.0",
+        "express": "^4.17.1",
+        "fs": "0.0.1-security",
+        "http": "0.0.1-security",
+        "save": "^2.4.0",
+        "socket.io": "^2.3.0"
     },
-    "author": "Mateo21 <mateo21@email.com>",
-    "description": "Un super Chat temps réel avec socket.io"
+    "author": "Christophe <cgandin@gmail.com>",
+    "description": "Un jeu de coinche en temps réel avec socket.io",
+    "engines": {
+        "node": "12.x"
+    },
+    "main": "app.js",
+    "scripts": {
+        "start": "node app.js",
+        "test": "node test.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Ceilys/coinche.git"
+    },
+    "keywords": [
+        "node",
+        "heroku",
+        "express",
+        "coinche",
+        "stephanoise",
+        "cards"
+    ],
+    "license": "MIT"
 }

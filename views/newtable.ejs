@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<!-- Christophe GANDIN -->
+<!-- Formation Node Js - Avril 2020 -->
+<!-- Exemple de mise en pratique -->
+<!-- CONSTITUTION DE LA TABLE -->
+<html>
+
+<head>
+    <title>Création table
+        <%= tablenum %>
+    </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../css/mybutton.css">
+    <link rel="stylesheet" href="../../css/newtable.css">
+    <link rel="stylesheet" href="../../css/tableovale.css">
+</head>
+
+<body>
+    <div class="Bienvenue">Création table<span class="tablenum">
+            <%= tablenum %></span>
+    </div>
+    <!-- Choix des partenaires -->
+    <section>
+        <div class="main">
+            <div class="mainj" >
+                <form class="myButton">
+                    <div id="listJ" class="mainjfj">Liste des joueurs
+                        <ul class="mainjfjul">
+                            <% gamerList.forEach(function(gamer) { %>
+                            <li><a href="/create/<%= pseudo %>/<%= tablenum %>/add-<%= gamer %>">
+                                    <%= gamer %></a></li>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="maint"></div>
+            <div class="mainp">Paramètres
+                <div class="radio">
+                    <input type="radio" id="steph" name="camp" value="steph" checked>
+                    <label for="steph">Evidemment la coinche stéphanoise</label>
+                </div>
+                <div class="radio">
+                    <input type="radio" id="lyon" name="camp" value="lyon">
+                    <label for="lyon">Ou la coinche lyonnaise</label>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Table et joueur fixe -->
+    <section>
+        <div class="latableovale"></div>
+        <div class="equipes">
+            <div class="j1">
+                <%= joueur1 %>
+            </div>
+            <div class="j2">
+                <%= joueur2 %>
+            </div>
+            <div class="j3">
+                <%= joueur3 %>
+            </div>
+            <div class="j4">
+                <%= joueur4 %>
+            </div>
+        </div>
+    </section>
+    <!-- Quitter la page -->
+    </br>
+    <section class="sortie">
+        <div id="go"><button class="myButton" onclick="go('go')">Table complète</button></div>
+        <div id="nogo"><button class="myButton" onclick="go('nogo')">En fait, non !</button></div>
+    </section>
+    <!-- Scripts -->
+    <script>
+    // Go : sortie de l'écran
+    function go(what) {
+        switch (what) {
+            case 'go':
+                let typeC = 'L';
+                if (document.getElementById('steph').checked) typeC = 'S';
+                window.location = "/create/<%= pseudo %>/<%= tablenum %>/close-" + typeC;
+                break;
+
+                // On passe par create pour remettre la table à l'état initial
+            case 'nogo':
+                window.location = "/create/<%= pseudo %>/<%= tablenum %>/cancel";
+                break;
+        }
+    }
+    </script>
+</body>
+
+</html>

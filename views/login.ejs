@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!-- Christophe GANDIN -->
+<!-- Formation Node Js - Avril 2020 -->
+<!-- Exemple de mise en pratique -->
+<html>
+
+<head>
+    <title>Rhino coinche
+    </title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../css/login.css">
+</head>
+
+<body>
+    <form class="formlogin">
+        <div class="imgcontainer">
+            <div class="t1 pc">Rhino</div>
+            <div class="t1"><img src="../../img/rhinochris.png" alt="Rhino chris" class="avatar"></div>
+            <div class="t1 pc">Coinche</div>
+        </div>
+        <div class="container">
+            <label class="lbpseudo" for="monpseudo"><b>Mon pseudo</b></label>
+            <input class="inlogin" id="monpseudo" type="text" name="monpseudo" required>
+            <button class="btlogin" onclick="jecoinche()">Je coinche</button>
+        </div>
+    </form>
+</body>
+<!--
+<----- SCRIPTS 
+<-- -->
+<script src="/socket.io/socket.io.js"></script>
+<script>
+//var socket = io.connect('http://localhost:' + location.port); // Without PORT 5000
+var socket = io();
+
+function jecoinche() {
+    let pseudo = document.getElementById("monpseudo").value;;
+
+    // Vérification sur le serveur du login
+    if (pseudo) socket.emit('new gamer', pseudo);
+}
+
+// User already connected
+socket.on('exist', function(error) {
+    if (error === 'Exist') alert('Le pseudo est déjà connecté');
+    if (error === 'PasGlup') alert("Pas très glup tes caractères (pas d'accent ni caractères spéciaux");
+    document.location = '/';
+})
+
+// User connected
+socket.on('userOK', function(pseudo) {
+    document.location = '/game/' + pseudo;
+})
+</script>
+
+</html>

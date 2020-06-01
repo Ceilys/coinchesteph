@@ -1,0 +1,65 @@
+/*styles.css----------*/
+/* ---- */
+/* Table ovale */
+/* ---- */
+
+.j1,
+.j2,
+.j3,
+.j4,
+.latableovale {
+    position: absolute;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.latableovale {
+    top: 150px;
+    left: 300px;
+    width: 350px;
+    height: 180px;
+    background: green;
+    border-radius: 120px / 80px;
+    z-index: 1;
+}
+
+.j1 {
+    top: 220px;
+    left: 320px;
+    z-index: 2;
+}
+
+.j2 {
+    top: 160px;
+    left: 430px;
+    z-index: 2;
+}
+
+.j3 {
+    top: 220px;
+    left: 530px;
+    z-index: 2;
+}
+
+.j4 {
+    top: 290px;
+    left: 430px;
+    z-index: 2;
+}
+
+
+
+/* Gestion sur mobile */
+@media screen and (max-width: 1024px) {
+
+    .j1,
+    .j2,
+    .j3,
+    .j4, .radio, .mainp,
+    .latableovale {
+        font-size: 35px;
+    }
+
+}
