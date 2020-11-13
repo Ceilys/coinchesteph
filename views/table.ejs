@@ -128,6 +128,20 @@
             <div id="enchCouleur"></div>
             <div id="acoinche"></div>
             <div id="asurcoinche"></div>
+            </br>
+            <div id="annQui"></div>
+            <div id="annCombien"></div>
+        </div>
+        <div class="droiteInfomid" id="droiteInfomid">
+            <div class="lignemid">
+                <div class="lignemLab" id="annonce">Annonces</div>
+                <div class="plusmoins">
+                    <div><button class="myAPlus" onclick="enchplusmoins('annonce','-')">-</button></div>
+                    <div><button class="myAPlus" onclick="enchplusmoins('annonce','+')">+</button></div>
+                    <div class="lignemText" id="monannonce" ></div>
+                    <div><button class="myAPlus" onclick="monannonce()">OK</button></div>
+                </div>
+            </div>
         </div>
         <div class="droiteInfobas" id="droiteInfobas">
             <div>
@@ -251,6 +265,12 @@ function enchplusmoins(type, action) {
         document.getElementById("macoul").style = retench.couleur;
     }
 
+    // Choix de la couleur et de l'enchère
+    if (type === 'annonce') {
+        let monannonce = document.getElementById("monannonce");
+        let retench = jeu.tapis.enchereplusmoins('<%= typeC %>', type, monannonce.innerHTML, action);
+        monannonce.innerHTML = retench.ench;
+    }
 }
 
 // Joueur a effectué une enchère
@@ -259,6 +279,15 @@ function jannonce(acoinche) {
     let macoul = document.getElementById("macoul").innerHTML;
     let monench = document.getElementById("monench").innerHTML;
     socket.emit('enchere', '<%= tablenum %>', '<%= pseudo %>', monench, macoul, acoinche);
+}
+
+// Joueur a une annonce
+function monannonce() {
+    // Récupération de l'annonce
+    let monannonce = document.getElementById("monannonce").innerHTML;
+    if (parseInt(monannonce) >= 20) {
+        socket.emit('jaiuneannonce', '<%= tablenum %>', '<%= pseudo %>', monannonce);
+    }
 }
 
 // Redistribuer
@@ -356,11 +385,11 @@ socket.on('ajoue', function(table, card, pseudo, quiJoue, tour, pli, result, don
             document.getElementById("go6").style.visibility = "collapse";
             document.getElementById("go2").style.visibility = "collapse";
             document.getElementById("popupEnchere").style.visibility = "hidden";
-            //document.getElementById("affEnchere").style.visibility = "visible";
+            document.getElementById("droiteInfomid").style.visibility = "visible";
             jeu.tapis.info("encheri", "");
             document.getElementById("scoreEq1").value = "";
             document.getElementById("scoreEq2").value = "";
-            jeu.tapis.init4cartes('<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');
+            jeu.tapis.init4cartes('<%= joueur1 %>', '<%= joueur2 %>', '<%= joueur3 %>', '<%= joueur4 %>');      
         }
 
         // Affichage retour après avoir joué
@@ -373,6 +402,7 @@ socket.on('ajoue', function(table, card, pseudo, quiJoue, tour, pli, result, don
 
         // Fin du tour
         if (tour === 4 || tour === 99) {
+            document.getElementById("droiteInfomid").style.visibility = "hidden";     
             jeu.tapis.info("donne",  pli.score + ' (' + pli.pli + ') ' + pli.vainqueur);
         }
 
@@ -400,6 +430,7 @@ socket.on('ajoue', function(table, card, pseudo, quiJoue, tour, pli, result, don
     }
 });
 
+
 // Récupérations de l'enchere
 socket.on('aEncheri', function(table, pseudo, ench, coul, acoinche) {
     if (table === '<%= tablenum %>') {
@@ -412,6 +443,14 @@ socket.on('aEncheri', function(table, pseudo, ench, coul, acoinche) {
             jeu.tapis.coinche(pseudo);
         }
 
+    }
+});
+
+// Un joueur a une annonce
+socket.on('aUneannonce', function(table, pseudo, annonce) {
+    if (table === '<%= tablenum %>') {
+        jeu.tapis.info("annQui", pseudo);
+        jeu.tapis.info("annCombien", annonce);
     }
 });
 

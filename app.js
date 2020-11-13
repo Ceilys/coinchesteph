@@ -329,6 +329,14 @@ io.sockets.on('connection', function(socket, pseudo) {
         socket.emit('aEncheri', table, pseudo, ench, coul, acoinche);
     });
 
+    // Un joueur a une annonce
+    socket.on('jaiuneannonce', function(table, pseudo, monannonce) {
+
+        // Juste une info à diffuser
+        socket.broadcast.emit('aUneannonce', table, pseudo, monannonce);
+        socket.emit('aUneannonce', table, pseudo, monannonce);
+    });
+
     // Un joueur a redistribué
     socket.on('redistrib', function(table, pseudo) {
         // Juste une info à diffuser

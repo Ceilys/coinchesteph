@@ -201,6 +201,10 @@ var jeu = {
             document.getElementById("enchCouleur").innerHTML = "";
             document.getElementById("acoinche").innerHTML = "";
             document.getElementById("asurcoinche").innerHTML = "";
+            document.getElementById("annQui").innerHTML = "";
+            document.getElementById("annCombien").innerHTML = ""; 
+            document.getElementById("enchCombien").innerHTML = "";
+            document.getElementById("monannonce").innerHTML = "";
 
             var num = 1;
             var tapis = document.getElementById(myElement);
@@ -339,6 +343,7 @@ var jeu = {
                 }
             }
 
+            // Case of colors
             if (typeE === 'coul') {
                 switch (ench) {
                     case "♥": // Coeur
@@ -363,17 +368,33 @@ var jeu = {
                         returnE = "♥";
                         break;
                 }
-            }
 
-            if (returnE === "♥" || returnE === "♦") {
-                coul = "color:red";
-            } else {
-                if (returnE === "♠" || returnE === "♣") {
-                    coul = "color:grey";
+                if (returnE === "♥" || returnE === "♦") {
+                    coul = "color:red";
                 } else {
-                    coul = "color:darkgrey";
+                    if (returnE === "♠" || returnE === "♣") {
+                        coul = "color:grey";
+                    } else {
+                        coul = "color:darkgrey";
+                    }
                 }
             }
+
+            // Case of annonce
+            if (typeE === 'annonce') {
+                switch (ench) {
+                    case '':
+                        action === '+' ? returnE = 20 : returnE = '';
+                        break;
+                    case '20':
+                        action === '+' ? returnE = 30 : returnE = '';
+                        break;
+                    default:
+                        action === '+' ? returnE = parseInt(ench) + 10 : returnE = parseInt(ench) - 10;
+                        break;
+                }
+            }
+
             returnC.ench = returnE;
             returnC.couleur = coul;
             return returnC;

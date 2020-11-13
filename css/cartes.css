@@ -179,6 +179,19 @@ body {
     word-break: break-all;
 }
 
+.droiteInfomid {
+    visibility: hidden;
+    border: 1px solid black;
+    border-radius: 5px / 5px;
+    background-color: grey;
+    text-align: center;
+    color: white;
+    padding: 5px; 
+}
+.lignemText {
+    width: 40px;
+}
+
 #acoinche,
 #asurcoinche {
     font-size: 0.8em;
