@@ -215,22 +215,25 @@ var jeu = {
                 }
             }
 
+            // tirage de deux cartes à masquer
+            var maskCard = jeu.tapis.maskCards();
             for (let i = index, src_i = "", id = "", image = {}, j = 1, lclass = 'carte'; i <= nbCarte; i++, j++) {
                 src_i = LCartes[i]; // Chaque carte a son image
                 //if (nbCarte > 5) src_i = '../../img/vide.png'; // On affiche simplement les cartes du petit cadran 
                 id = LCartes[i]; // L'id de la carte est stockée à ce moment
+                lclass = 'carte'; // Toutes les cartes sont visibles
 
-                // 4 cartes sont mises de côté : la place des as
-                //if ((i == 0 || i == 8 || i == 16 || i == 24) && nbCarte > 5) { src_i = '../../img/vide.png';
-                //    id = 'AS' + i };
-
-                if ((j === 7 || j === 8) && f78) {
-                    id = j;
-                    lclass = 'cache';
+                // on cache deux cartes aléatoires
+                if (j === maskCard[0] && f78) {
+                    id = 7;
+                    lclass = 'cache'; 
+                }
+                if (j === maskCard[1] && f78) {
+                    id = 8;
+                    lclass = 'cache'; 
                 }
 
-                // Il y a 4 tapis et un tapis supplémentaire
-                // On alimente les 4 tapis de 8 cartes + le tapis complémentaire 
+                // On ajoute les cartes visibles 
                 image = createSimpleNode('img', {
                     src: src_i,
                     id: id,
@@ -242,6 +245,20 @@ var jeu = {
             } // fin for
 
         }, // fin dristrib
+
+        
+        maskCards: function() {;
+            var cardsRandom = [];
+            var card1 = Math.floor(Math.random() * Math.floor(8));
+            var card2 = 9;
+            do {
+                card2 = Math.floor(Math.random() * Math.floor(8));
+             } while (card2 === card1)
+            cardsRandom.push(card1 + 1);
+            cardsRandom.push(card2 + 1);
+            return cardsRandom;
+
+        },
 
         // Change les cartes 7 et 8
         change78: function() {

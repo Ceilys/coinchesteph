@@ -1,4 +1,4 @@
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8080;
 var http = require('http');
 var fs = require('fs');
 var session = require('cookie-session');
@@ -62,9 +62,10 @@ app.use(function(req, res, next) {
     // Later connexion after table creation or direct entry
     .get('/game/:pseudo', function(req, res) {
         if (gamerList.indexOf(req.params.pseudo) === -1 || gamerList.length > 50) {
+            console.log('Pas Dans le game :' + req.params.pseudo + 'uuu' + gamerList.length);
             res.render('login.ejs');
         } else {
-            //console.log('Dans le game :' + req.params.pseudo);
+            console.log('Dans le game :' + req.params.pseudo);
             res.render('welcome.ejs', { pseudo: req.params.pseudo, action: '/create/' + req.params.pseudo + '/' + gameTable.length });
         }
     })
@@ -161,12 +162,11 @@ io.sockets.on('connection', function(socket, pseudo) {
         console.log(pseudo + ' / statut (' + playerErr + ')');
         if (playerErr !== "") {
             socket.emit('exist', playerErr);
-
         } else {
             pseudo = pseudo.replace(/ /g, "_"); //On remplace les blanc / _ pour la suite
+            //socket.pseudo = pseudo;
+            console.log(pseudo + ' est connecté');
             socket.emit('userOK', pseudo);
-            socket.pseudo = pseudo;
-            //console.log(pseudo + ' est connecté');
         }
     });
 
